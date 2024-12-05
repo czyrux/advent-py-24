@@ -5,8 +5,12 @@ from typing import List, Tuple
 def main() -> None:
     """Execute main program logic."""
     list_inputs = read_input(Path("inputs") / "advent_01_input.txt")
+
     distance = calculate_distance_between_list(*list_inputs)
     print(f"Part I - Distance: {distance} \n")
+
+    similarity_score = calculate_similarity_score(*list_inputs)
+    print(f"Part II - Similarity score: {similarity_score} \n")
 
 
 def read_input(file_path: str) -> Tuple[List[int], List[int]]:
@@ -52,6 +56,26 @@ def calculate_distance_between_list(left_list: List[int], right_list: List[int])
     """
     left_list, right_list = sorted(left_list), sorted(right_list)
     return sum(abs(left - right) for left, right in zip(left_list, right_list))
+
+
+def calculate_similarity_score(left_list: List[int], right_list: List[int]) -> int:
+    """Calculate how similar are both list.
+
+    Score is the sum of each value times its frequency in right list.
+
+    Args:
+        left_list: List of integers
+        right_list: List of integers
+    Returns:
+        int similarity score between both lists
+    """
+
+    # Count the frequency of each number on the right list
+    right_list_frequencies = {}
+    for num in right_list:
+        right_list_frequencies[num] = right_list_frequencies.get(num, 0) + 1
+
+    return sum(value * right_list_frequencies.get(value, 0) for value in left_list)
 
 
 if __name__ == "__main__":

@@ -1,6 +1,10 @@
 from pathlib import Path
 
-from src.solutions.advent_01 import calculate_distance_between_list, read_input
+from src.solutions.advent_01 import (
+    calculate_distance_between_list,
+    calculate_similarity_score,
+    read_input,
+)
 
 
 def test_read_input():
@@ -27,3 +31,21 @@ def test_calculate_distance_between_lists():
 
     # Test empty lists
     assert calculate_distance_between_list([], []) == 0
+
+
+def test_calculate_similarity_score():
+    """Test similarity score between two lists."""
+    # Test basic scenario with only 1 value repeated
+    assert calculate_similarity_score([1], [1, 1, 1]) == 3
+
+    # Test  scenario when none repeated
+    assert calculate_similarity_score([1, 2, 3], [4, 5, 6]) == 0
+
+    # Test scenario when repeated in multiple positions
+    assert calculate_similarity_score([1, 2, 1], [4, 1, 1]) == 4
+
+    # Test scenario when repeated in multiple positions
+    assert calculate_similarity_score([1, 2], [2, 4, 1, 2, 1]) == 6
+
+    # Test empty lists
+    assert calculate_similarity_score([], []) == 0
