@@ -14,7 +14,7 @@ def read_input(file_path: str) -> Tuple[List[int], List[int]]:
     Args:
         file_path: Path to input file
     Returns:
-        Tuple of (left_numbers, right_numbers) as sorted integer lists
+        Tuple of (left_numbers, right_numbers) lists preserving input order
     """
     path = Path(file_path)
     try:
@@ -30,8 +30,8 @@ def read_input(file_path: str) -> Tuple[List[int], List[int]]:
 
         # Unzip pairs if any exist
         if pairs:
-            left, right = zip(*pairs)
-            return sorted(left), sorted(right)
+            left_nums, right_nums = zip(*pairs)
+            return (list(left_nums), list(right_nums))
         return [], []
 
     except FileNotFoundError as err:
@@ -39,13 +39,18 @@ def read_input(file_path: str) -> Tuple[List[int], List[int]]:
 
 
 def calculate_distance_between_list(left_list: List[int], right_list: List[int]) -> int:
-    """Find pair of numbers from left_list and right_list that sum to target.
+    """Calculate the total distance between two list.
+
+    Distance is measured as the total distance between each pair of elements
+    at the same position on the sorted list.
+
     Args:
         left_list: List of integers
         right_list: List of integers
     Returns:
         int accumulated distance between each pair of numbers
     """
+    left_list, right_list = sorted(left_list), sorted(right_list)
     return sum(abs(left - right) for left, right in zip(left_list, right_list))
 
 

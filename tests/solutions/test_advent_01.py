@@ -7,8 +7,8 @@ def test_read_input():
     """Test reading full input content."""
     sample_input = Path("inputs") / "advent_01_example.txt"
     left_list, right_list = read_input(sample_input)
-    assert left_list == [1, 2, 3, 3, 3, 4]
-    assert right_list == [3, 3, 3, 4, 5, 9]
+    assert left_list == [3, 4, 2, 1, 3, 3]
+    assert right_list == [4, 3, 5, 3, 9, 3]
 
 
 def test_calculate_distance_between_lists():
